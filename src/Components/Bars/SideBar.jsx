@@ -45,19 +45,16 @@ export default function SideBar() {
             >
                 <div className="mt-4">
                     {links.map((link, key) => (
+
                         <NavLink
                             key={key}
                             to={link.path}
                             className="flex px-2 py-2 items-center gap-2 my-2 hover:bg-[#E5ECF6] transition rounded"
                         >
-                            <img
-                                style={{
-                                    padding: isOpen ? "10px 8px 10px 15px" : "10px 8px",
-                                    width: "24px",
-                                    height: "23px",
-                                }}
-                                src={link.icon}
-                                alt="icon"
+                            <i
+
+                                className={`${link.icon} text-gray-400 hover:text-[#E5ECF6] transition`}
+
                             />
                             <p style={{ display: isOpen ? "block" : "none" }}>
                                 {link.name}
@@ -81,7 +78,7 @@ export default function SideBar() {
                         }}
                     />
                     <p style={{ display: isOpen ? "block" : "none" }}>
-                        تسجيل الخروج
+                        Log Out
                     </p>
                 </div>
             </div>

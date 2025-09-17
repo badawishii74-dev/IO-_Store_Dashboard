@@ -4,6 +4,7 @@ import Login from './Pages/Login';
 import RequireBack from './hooks/RequireBack';
 import RequireAuth from './hooks/RequireAuth';
 import Dashboard from './Pages/Dashbard';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function App() {
   return (

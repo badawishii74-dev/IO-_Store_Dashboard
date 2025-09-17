@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useMenu } from "../../Context/useMenu";  // 👈 استدعاء الـ hook
 
 export default function TopBar() {
-    const { isOpen, setIsOpen } = useMenu(); // 👈 استخدام hook مباشرة
+    const { setIsOpen } = useMenu(); // 👈 استخدام hook مباشرة
 
     return (
         <div className="top-bar flex items-center gap-2">
@@ -15,18 +15,15 @@ export default function TopBar() {
                 /> */}
             </Link>
             <div className="d-flex align-items-center gap-5">
-                {/* <FontAwesomeIcon
+                <FontAwesomeIcon
                     onClick={() => setIsOpen((prev) => !prev)}
                     cursor={"pointer"}
-                // icon={faBars}
-                /> */}
+                    icon={faBars}
+                />
             </div>
             <div className="w-[60%] h-[100%] flex items-center px-3 justify-between">
                 <div className="flex">
-                    <p className="text-[14px]">لوحة التحكم </p>
-                    <Link to={"/"} className="text-[14px] text-gray-400">
-                        {" / "}الرئيسية
-                    </Link>
+                    <p className="text-[14px]">IO Store Dashboard</p>
                 </div>
             </div>
         </div>
