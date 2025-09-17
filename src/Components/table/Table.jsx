@@ -57,43 +57,48 @@ const Table = ({ headers, rows, rowKey, customStyles, route, onDelete, update_st
                                                     />
                                                 ) : (
                                                     <div className="profile-img bg-gray-400 flex justify-center items-center text-[15px]">
-                                                        {row.name.slice(0, 2).toUpperCase()}
+                                                        {row?.name?.slice(0, 2).toUpperCase()}
                                                     </div>
                                                 )}
                                                 <span className="user-name text-[15px]">{row[header.key]}</span>
                                             </div>
                                         )
-                                            : header.key === "actions" ?
+                                            : header.key === "customer" ?
+                                                <span className="user-name text-[15px]">{row.customer?.name}</span>
+                                                :
+                                                header.key === "vendor" && typeof (row.vendor) === "object" ?
 
-                                                <div className="flex justify-center items-center gap-2">
-                                                    <Link to={`/${route}/${rowId}`} className="p-1 bg-green-500 hover:bg-green-600 text-white rounded-md"> Edit</Link>
-                                                    <button className="p-1 bg-red-500 hover:bg-red-600 text-white rounded-md cursor-pointer"
-                                                        onClick={() => onDelete(rowId)}>Delete</button>
-                                                </div> :
-                                                header.key === "delete" ? <button className="p-1 bg-red-500 hover:bg-red-600 text-white rounded-md cursor-pointer"
-                                                    onClick={() => onDelete(rowId)}>Delete</button>
-                                                    :
+                                                    <span className="user-name text-[15px]">{row.vendor?.name}</span>
+                                                    : header.key === "actions" ?
 
-                                                    header.key === "update_status" ? (
-                                                        <select
-                                                            value={row.status}
-                                                            onChange={(e) => update_status(rowId, e.target.value)}>
-                                                            <option disabled>status</option>
-                                                            <option value="approved">Approved</option>
-                                                            <option value="pending">Pending</option>
-                                                            <option value="rejected">Rejected</option>
-                                                        </select>) :
+                                                        <div className="flex justify-center items-center gap-2">
+                                                            <Link to={`/${route}/${rowId}`} className="p-1 bg-green-500 hover:bg-green-600 text-white rounded-md"> Edit</Link>
+                                                            <button className="p-1 bg-red-500 hover:bg-red-600 text-white rounded-md cursor-pointer"
+                                                                onClick={() => onDelete(rowId)}>Delete</button>
+                                                        </div> :
+                                                        header.key === "delete" ? <button className="p-1 bg-red-500 hover:bg-red-600 text-white rounded-md cursor-pointer"
+                                                            onClick={() => onDelete(rowId)}>Delete</button>
+                                                            :
 
-                                                        header.key === "created_at" || header.key === "updated_at" ?
-                                                            new Date(row[header.key]).toLocaleDateString() :
-                                                            header.key === "userName" ?
-                                                                row.user?.name :
-                                                                header.key === "specName" ?
-                                                                    row.specialist?.name :
+                                                            header.key === "update_status" ? (
+                                                                <select
+                                                                    value={row.status}
+                                                                    onChange={(e) => update_status(rowId, e.target.value)}>
+                                                                    <option disabled>status</option>
+                                                                    <option value="approved">Approved</option>
+                                                                    <option value="rejected">Rejected</option>
+                                                                </select>) :
+                                                                row[header.key] === null ? "....." :
+                                                                    header.key === "created_at" || header.key === "updated_at" ?
+                                                                        new Date(row[header.key]).toLocaleDateString() :
+                                                                        header.key === "userName" ?
+                                                                            row.user?.name :
+                                                                            header.key === "specName" ?
+                                                                                row.specialist?.name :
 
-                                                                    (
-                                                                        row[header.key]
-                                                                    )}
+                                                                                (
+                                                                                    row[header.key]
+                                                                                )}
                                     </td>
                                 ))}
                             </>
