@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { BASE } from "../Api/Api";
 import { AuthContext } from "./AuthContext";
+import Cookie from "cookie-universal";
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    // Cookies
+    const cookie = Cookie();
 
     const login = async (email, password) => {
         const response = await fetch(`${BASE}/admin/auth/login`, {
@@ -15,7 +18,7 @@ export const AuthProvider = ({ children }) => {
         if (response.ok) {
             const userData = await response.json();
             setUser(userData);
-            localStorage.setItem("admin-token", JSON.stringify(userData.token));
+            cookie.set("admin-token", JSON.stringify(userData.token));
             return true;
         }
 
