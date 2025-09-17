@@ -1,5 +1,5 @@
 import "./Bars.css";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import Cookie from "cookie-universal";
 import { links } from "./Links";
@@ -20,10 +20,7 @@ export default function SideBar() {
         setSearchParams(window.location.pathname)
     }, [location.pathname])
 
-
-    console.log(searchParams)
-
-
+    // console.log(searchParams)
 
     return (
         <div>

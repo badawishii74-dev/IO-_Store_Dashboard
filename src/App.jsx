@@ -6,7 +6,8 @@ import RequireAuth from './hooks/RequireAuth';
 import Dashboard from './Pages/Dashbard';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Overview from './Components/Overview';
-import Order from './Pages/Order';
+// import Order from './Pages/Order';
+import Products from './Pages/products/Products';
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route element={<Dashboard />}>
             <Route path="/" element={<Overview />} />
-            <Route path="orders" element={<Order />} />
+            {/* <Route path="orders" element={<Order />} /> */}
+            <Route path="products" element={<Products/>} />
 
           </Route>
         </Route>
