@@ -2,7 +2,7 @@ import "./Table.css";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-const Table = ({ headers, rows, rowKey, customStyles, route, onDelete }) => {
+const Table = ({ headers, rows, rowKey, customStyles, route, onDelete, update_status }) => {
     const { tableStyle, headerStyle, cellStyle } = customStyles;
 
     return (
@@ -73,16 +73,27 @@ const Table = ({ headers, rows, rowKey, customStyles, route, onDelete }) => {
                                                 header.key === "delete" ? <button className="p-1 bg-red-500 hover:bg-red-600 text-white rounded-md cursor-pointer"
                                                     onClick={() => onDelete(rowId)}>Delete</button>
                                                     :
-                                                    header.key === "created_at" || header.key === "updated_at" ?
-                                                        new Date(row[header.key]).toLocaleDateString() :
-                                                        header.key === "userName" ?
-                                                            row.user?.name :
-                                                            header.key === "specName" ?
-                                                                row.specialist?.name :
 
-                                                                (
-                                                                    row[header.key]
-                                                                )}
+                                                    header.key === "update_status" ? (
+                                                        <select
+                                                            value={row.status}
+                                                            onChange={(e) => update_status(rowId, e.target.value)}>
+                                                            <option disabled>status</option>
+                                                            <option value="approved">Approved</option>
+                                                            <option value="pending">Pending</option>
+                                                            <option value="rejected">Rejected</option>
+                                                        </select>) :
+
+                                                        header.key === "created_at" || header.key === "updated_at" ?
+                                                            new Date(row[header.key]).toLocaleDateString() :
+                                                            header.key === "userName" ?
+                                                                row.user?.name :
+                                                                header.key === "specName" ?
+                                                                    row.specialist?.name :
+
+                                                                    (
+                                                                        row[header.key]
+                                                                    )}
                                     </td>
                                 ))}
                             </>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Table from "../../Components/table/Table";
 import axios from "axios";
-import { DELETE_PRODUCT, PRODUCTS } from "../../Api/Api";
+import { DELETE_PRODUCT, PRODUCTS, UPDATE_PRODUCT_STATUS } from "../../Api/Api";
 import Cookie from "cookie-universal";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import MoonLoader from "react-spinners/MoonLoader";
 import { useDebounce } from "use-debounce";
 
@@ -49,7 +49,6 @@ const Products = () => {
         }
     };
 
-    // جلب المنتجات بالبحث
     // جلب المنتجات بالبحث
     const searchProducts = async (query) => {
         try {
@@ -98,8 +97,9 @@ const Products = () => {
                     Accept: "application/json",
                 },
             })
-            .then(() => {
+            .then((res) => {
                 toast.success("Product deleted successfully");
+                console.log(res)
                 // بعد الحذف، نرجع نجيب نفس الداتا (بحث أو عادي)
                 if (search) {
                     searchProducts(search);
@@ -107,8 +107,32 @@ const Products = () => {
                     getAllProducts();
                 }
             })
+            .catch((err) => {
+                // console.log(err)
+                toast.error(err.response?.data?.message || "Failed to delete product");
+            });
+    };
+
+    // update product status
+    const handleUpdateStatus = (id, status) => {
+        axios
+            .post(`${UPDATE_PRODUCT_STATUS}/${id}`, { status: status }, {
+                headers: {
+                    Authorization: `Bearer ${cookie.get("admin-token")}`,
+                    Accept: "application/json",
+                },
+            })
+            .then(() => {
+                toast.success("Product status updated successfully");
+                // بعد التحديث، نرجع نجيب نفس الداتا (بحث أو عادي)
+                if (search) {
+                    searchProducts(search);
+                } else {
+                    getAllProducts();
+                }
+            })
             .catch(() => {
-                toast.error("Failed to delete product");
+                toast.error("Failed to update product status");
             });
     };
 
@@ -125,7 +149,7 @@ const Products = () => {
 
     return (
         <div className="container mx-auto">
-
+            <ToastContainer theme="colored" position="top-right" autoClose={3000} />
 
             <div className="container mx-auto">
                 <div className="flex justify-between items-center px-5 pt-3">
@@ -152,6 +176,7 @@ const Products = () => {
                         customStyles={customStyles}
                         route="products"
                         onDelete={handleDelete}
+                        update_status={handleUpdateStatus}
                     />
                 )}
             </div>
