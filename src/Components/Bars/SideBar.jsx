@@ -1,5 +1,5 @@
 import "./Bars.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import Cookie from "cookie-universal";
 import { links } from "./Links";
@@ -7,11 +7,23 @@ import { links } from "./Links";
 // 👇 استدعاء الـ hooks بدل useContext مباشرة
 import { useMenu } from "../../Context/useMenu";
 import { useWindowSize } from "../../Context/useWindowSize";
+import { useEffect, useState } from "react";
 
 export default function SideBar() {
     const { isOpen } = useMenu();           // من MenuContext
     const { windowSize } = useWindowSize(); // من WindowContext
     const cookie = Cookie();
+    const [searchParams, setSearchParams] = useState()
+    const location = useLocation();
+
+    useEffect(() => {
+        setSearchParams(window.location.pathname)
+    }, [location.pathname])
+
+
+    console.log(searchParams)
+
+
 
     return (
         <div>

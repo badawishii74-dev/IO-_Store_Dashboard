@@ -1,7 +1,7 @@
 export const links = [
   {
     name: "Dashboard",
-    path: "Dashboard",
+    path: "",
     icon: "fa-solid fa-chart-line",
   },
   {
