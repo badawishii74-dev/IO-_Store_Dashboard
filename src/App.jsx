@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './Pages/Login';
 import RequireBack from './hooks/RequireBack';
 import RequireAuth from './hooks/RequireAuth';
+import Dashboard from './Pages/Dashbard';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
 
 
         <Route element={<RequireAuth />}>
-          <Route path="/" element={<h1>Welcome to the Admin Dashboard</h1>} />
+          <Route path="/" element={<Dashboard />} />
         </Route>
 
       </Routes>
