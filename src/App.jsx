@@ -5,6 +5,7 @@ import RequireBack from './hooks/RequireBack';
 import RequireAuth from './hooks/RequireAuth';
 import Dashboard from './Pages/Dashbard';
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import Overview from './Components/Overview';
 
 function App() {
   return (
@@ -17,7 +18,10 @@ function App() {
 
 
         <Route element={<RequireAuth />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route element={<Dashboard />}>
+            <Route path="/" element={<Overview />} />
+
+          </Route>
         </Route>
 
       </Routes>
