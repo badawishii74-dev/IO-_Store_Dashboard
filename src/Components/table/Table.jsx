@@ -1,8 +1,9 @@
 import "./Table.css";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import { FaHandPointer } from "react-icons/fa";
 
-const Table = ({ headers, rows, rowKey, customStyles, route, onDelete, update_status }) => {
+const Table = ({ headers, rows, rowKey, customStyles, route, onDelete, update_status, onShow }) => {
     const { tableStyle, headerStyle, cellStyle } = customStyles;
 
     return (
@@ -31,6 +32,7 @@ const Table = ({ headers, rows, rowKey, customStyles, route, onDelete, update_st
                 <tbody>
                     {rows?.map((row, rowIndex) => {
                         const isUsersRoute = route === "users" || route === "consultants";
+                        const isOrderRoute = route === "orders";
                         const rowId = row.id;
                         const rowContent = (
                             <>
@@ -66,39 +68,57 @@ const Table = ({ headers, rows, rowKey, customStyles, route, onDelete, update_st
                                             : header.key === "customer" ?
                                                 <span className="user-name text-[15px]">{row.customer?.name}</span>
                                                 :
-                                                header.key === "vendor" && typeof (row.vendor) === "object" ?
+                                                header.key === "show" ?
+                                                    <FaHandPointer
+                                                        onClick={() => onShow(row.id)}
+                                                        className="text-[15px] m-auto block text-blue-500 hover:text-blue-700 transition cursor-pointer"
+                                                        title="Show Order Details" />
+                                                    :
+                                                    header.key === "vendor" && typeof (row.vendor) === "object" ?
 
-                                                    <span className="user-name text-[15px]">{row.vendor?.name}</span>
-                                                    : header.key === "actions" ?
+                                                        <span className="user-name text-[15px]">{row.vendor?.name}</span>
+                                                        : header.key === "actions" ?
 
-                                                        <div className="flex justify-center items-center gap-2">
-                                                            <Link to={`/${route}/${rowId}`} className="p-1 bg-green-500 hover:bg-green-600 text-white rounded-md"> Edit</Link>
-                                                            <button className="p-1 bg-red-500 hover:bg-red-600 text-white rounded-md cursor-pointer"
+                                                            <div className="flex justify-center items-center gap-2">
+                                                                <Link to={`/${route}/${rowId}`} className="p-1 bg-green-500 hover:bg-green-600 text-white rounded-md"> Edit</Link>
+                                                                <button className="p-1 bg-red-500 hover:bg-red-600 text-white rounded-md cursor-pointer"
+                                                                    onClick={() => onDelete(rowId)}>Delete</button>
+                                                            </div> :
+                                                            header.key === "delete" ? <button className="p-1 bg-red-500 hover:bg-red-600 text-white rounded-md cursor-pointer"
                                                                 onClick={() => onDelete(rowId)}>Delete</button>
-                                                        </div> :
-                                                        header.key === "delete" ? <button className="p-1 bg-red-500 hover:bg-red-600 text-white rounded-md cursor-pointer"
-                                                            onClick={() => onDelete(rowId)}>Delete</button>
-                                                            :
+                                                                :
+                                                                header.key === "update_status" && isOrderRoute ? (
+                                                                    <select
+                                                                        value={row.status}
+                                                                        onChange={(e) => update_status(rowId, e.target.value)}>
+                                                                        <option disabled>status</option>
+                                                                        <option value="pending">pending</option>
+                                                                        <option value="completed">completed</option>
+                                                                        <option value="on_the_way">on_the_way</option>
+                                                                        <option value="delivered">delivered</option>
+                                                                        <option value="cancelled">cancelled</option>
+                                                                    </select>) :
 
-                                                            header.key === "update_status" ? (
-                                                                <select
-                                                                    value={row.status}
-                                                                    onChange={(e) => update_status(rowId, e.target.value)}>
-                                                                    <option disabled>status</option>
-                                                                    <option value="approved">Approved</option>
-                                                                    <option value="rejected">Rejected</option>
-                                                                </select>) :
-                                                                row[header.key] === null ? "....." :
-                                                                    header.key === "created_at" || header.key === "updated_at" ?
-                                                                        new Date(row[header.key]).toLocaleDateString() :
-                                                                        header.key === "userName" ?
-                                                                            row.user?.name :
-                                                                            header.key === "specName" ?
-                                                                                row.specialist?.name :
+                                                                    header.key === "update_status" ? (
+                                                                        <select
+                                                                            value={row.status}
+                                                                            onChange={(e) => update_status(rowId, e.target.value)}>
+                                                                            <option disabled>status</option>
+                                                                            <option value="approved">Approved</option>
+                                                                            <option value="rejected">Rejected</option>
+                                                                        </select>) :
 
-                                                                                (
-                                                                                    row[header.key]
-                                                                                )}
+                                                                        row[header.key] === null ? "....." :
+                                                                            header.key === "created_at" || header.key === "updated_at" ?
+                                                                                new Date(row[header.key]).toLocaleDateString() :
+                                                                                header.key === "userName" ?
+                                                                                    row.user?.name :
+                                                                                    header.key === "specName" ?
+                                                                                        row.specialist?.name :
+
+                                                                                        (
+                                                                                            row[header.key]
+                                                                                        )}
                                     </td>
                                 ))}
                             </>
