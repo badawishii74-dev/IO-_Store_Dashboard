@@ -98,27 +98,34 @@ const Table = ({ headers, rows, rowKey, customStyles, route, onDelete, update_st
                                                                         <option value="delivered">delivered</option>
                                                                         <option value="cancelled">cancelled</option>
                                                                     </select>) :
-
-                                                                    header.key === "update_status" ? (
+                                                                    header.key === "update_status" && route === "vendors" ? (
                                                                         <select
                                                                             value={row.status}
                                                                             onChange={(e) => update_status(rowId, e.target.value)}>
                                                                             <option disabled>status</option>
-                                                                            <option value="approved">Approved</option>
-                                                                            <option value="rejected">Rejected</option>
+                                                                            <option value="active">Active</option>
+                                                                            <option value="inactive">Inactive</option>
                                                                         </select>) :
+                                                                        header.key === "update_status" ? (
+                                                                            <select
+                                                                                value={row.status}
+                                                                                onChange={(e) => update_status(rowId, e.target.value)}>
+                                                                                <option disabled>status</option>
+                                                                                <option value="approved">Approved</option>
+                                                                                <option value="rejected">Rejected</option>
+                                                                            </select>) :
 
-                                                                        row[header.key] === null ? "....." :
-                                                                            header.key === "created_at" || header.key === "updated_at" ?
-                                                                                new Date(row[header.key]).toLocaleDateString() :
-                                                                                header.key === "userName" ?
-                                                                                    row.user?.name :
-                                                                                    header.key === "specName" ?
-                                                                                        row.specialist?.name :
+                                                                            row[header.key] === null ? "....." :
+                                                                                header.key === "created_at" || header.key === "updated_at" ?
+                                                                                    new Date(row[header.key]).toLocaleDateString() :
+                                                                                    header.key === "userName" ?
+                                                                                        row.user?.name :
+                                                                                        header.key === "specName" ?
+                                                                                            row.specialist?.name :
 
-                                                                                        (
-                                                                                            row[header.key]
-                                                                                        )}
+                                                                                            (
+                                                                                                row[header.key]
+                                                                                            )}
                                     </td>
                                 ))}
                             </>

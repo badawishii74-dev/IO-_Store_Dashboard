@@ -17,3 +17,11 @@ export const ORDER_DETIALS= `${BASE}/admin/orders/show`
 export const SEARCH_ORDERS = `${BASE}/admin/orders/search`
 export const UPDATE_ORDER_STATUS = `${BASE}/admin/orders/updatestatus`
 export const FILTER_ORDERS_BY_DATE = `${BASE}/admin/orders/daterange`
+
+
+// vendors
+export const VENDORS = `${BASE}/admin/vendors`
+export const VENDOR_DETAILS = `${BASE}/admin/vendors/show`
+export const PENDING_VENDORS = `${BASE}/admin/vendors/pending`
+export const UPDATE_VENDOR_STATUS = `${BASE}/admin/vendors/updatestatus`
+export const DELETE_VENDORS = `${BASE}/admin/vendors/delete`

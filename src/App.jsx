@@ -8,6 +8,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import Overview from './Components/Overview';
 import Orders from './Pages/Orders';
 import Products from './Pages/products/Products';
+import Vendors from './Pages/Vendors';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<Overview />} />
             <Route path="orders" element={<Orders />} />
             <Route path="products" element={<Products/>} />
+            <Route path="vendors" element={<Vendors />} />
 
           </Route>
         </Route>
