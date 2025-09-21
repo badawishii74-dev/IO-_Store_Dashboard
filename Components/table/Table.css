@@ -1,0 +1,70 @@
+.table-container {
+  overflow-x: auto;
+  width: 98%;
+  margin: 50px auto;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  border-spacing: 0;
+  border-radius: 15px !important;
+  table-layout: auto;
+}
+.table-header {
+  padding: 10px;
+  background-color: #f4f5f7;
+  color: #2e343e;
+  font-weight: bold;
+  text-align: center;
+}
+.table-row:hover,
+.table-row-link:hover {
+  background-color: #f1f5f9;
+}
+
+.table-cell {
+  padding: 8px 10px;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
+.name-with-img {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Increase gap for better spacing */
+  max-width: 150px; /* Set a larger max width for this container */
+  flex-grow: 1; /* Allow it to grow to take up more space */
+}
+
+.profile-img {
+  width: 40px; /* Increase image size */
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Ensure ellipsis is used for long names */
+  font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+  .name-with-img {
+    max-width: 200px; /* Increase max width in mobile view */
+    flex-grow: 1; /* Allow it to grow to take more space */
+  }
+
+  .custom-table td {
+    width: auto; /* Let the name and image cell take more space */
+  }
+
+  .custom-table th,
+  .custom-table td {
+    padding: 12px; /* Adjust padding for readability */
+  }
+}
